@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
+import { TabsPage } from '../tabs/tabs.page';
 
 @Component({
   selector: 'app-tab1',
@@ -6,7 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
 
-  constructor() {}
+  constructor( public navCtrl: NavController ) {}
+
 
 }

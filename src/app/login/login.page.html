@@ -1,0 +1,32 @@
+<ion-header no-border>
+    <ion-toolbar color="dark">
+        <ion-title>login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content text-center class="fondo">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+
+            </ion-col>
+            <ion-col>
+                <ion-img class="imagen" src="../../assets/img/user.png"></ion-img>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+        </ion-row>
+        <div class="inp">
+            <ion-item class="prueba">
+                <ion-label position="fixed">Usuario</ion-label>
+                <ion-input color="dark" #usuario></ion-input>
+            </ion-item>
+            <br>
+            <ion-item class="prueba">
+                <ion-label position="fixed">Contraseña</ion-label>
+                <ion-input type="password" #pass></ion-input>
+            </ion-item>
+        </div>
+        <ion-button (click)="uS.login(usuario.value, pass.value)" [routerLink]="['/tabs']" size="large" shape="round" expand="full" fill="outline" color="dark">Iniciar Sesión</ion-button>
+    </ion-grid>
+</ion-content>
