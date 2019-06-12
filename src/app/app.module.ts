@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageModule } from './login/login.module';
 import { UserService } from './services/user.service';
+import { IonicStorageModule } from '@ionic/storage';
+import { ComponentesModule } from './components/componentes.module';
+import { ArticulosService } from './services/articulos.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,12 +23,15 @@ import { UserService } from './services/user.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     LoginPageModule,
-    HttpClientModule
+    HttpClientModule,
+    ComponentesModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
     SplashScreen,
     UserService,
+    ArticulosService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

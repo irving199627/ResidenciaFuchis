@@ -1,0 +1,15 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="openFirst()"> Hola </ion-button>
+            <!-- <ion-menu-button color="primary" menu="first"></ion-menu-button> -->
+        </ion-buttons>
+        <ion-title>
+            {{ titulo }}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="logOut()">Log out</ion-button>
+            <ion-icon name="exit" color="primary"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>

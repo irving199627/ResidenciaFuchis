@@ -1,22 +1,31 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>
-            Tab One
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-
+<app-header idMenu="first" titulo="Reservaciones"></app-header>
+<app-menu idMenu="first" contentId="principal"></app-menu>
+<ion-router-outlet id="principal"></ion-router-outlet>
 <ion-content>
-    <ion-slides pager="true" [options]="slideOpts">
-        <ion-slide>
-            <h1>Slide 1</h1>
-        </ion-slide>
-        <ion-slide>
-            <h1>Slide 2</h1>
-            <button ion-button icon-right clear full large>
-              Continuar
-              <ion-icon name="arrow-forward"></ion-icon>    
-      </button>
-        </ion-slide>
-    </ion-slides>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <ion-searchbar animated (ionChange)="buscar(first.value)" name="first" ngModel #first="ngModel"></ion-searchbar>
+    </form>
+    <ion-list>
+        <ion-item *ngFor="let art of aS.articulos; let i = index">
+            <ion-thumbnail slot="start">
+                <!-- <ion-img src="../../assets/img/user.png"></ion-img> -->
+                <ion-img src="http://boiling-reaches-83706.herokuapp.com/img/warehouse/{{art.foto}}"></ion-img>
+            </ion-thumbnail>
+            <ion-label text-wrap>
+                <ion-text color="primary">
+                    <h3>{{ art.nombre }}</h3>
+                </ion-text>
+                <p>{{ art.descripcion }} <br> modelo: {{ art.modelo }}</p>
+                <ion-text color="secondary" text-center>
+                    <ion-button shape="round" expand="full" fill="outline" color="tertiary" size="small">Reservar</ion-button>
+                </ion-text>
+            </ion-label>
+        </ion-item>
+
+        <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+    </ion-list>
 </ion-content>

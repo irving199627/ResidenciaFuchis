@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
-import { TabsPage } from '../tabs/tabs.page';
+import { Component, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { UserService } from '../services/user.service';
+import {NgForm} from '@angular/forms';
+import { ArticulosService } from '../services/articulos.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,12 +10,53 @@ import { TabsPage } from '../tabs/tabs.page';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400
-  };
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  usuario;
+  data = false;
+  data2: any[] = Array(20);
 
-  constructor( public navCtrl: NavController ) {}
+  constructor(
+               public uS: UserService,
+               public aS: ArticulosService
+             ) {
 
+      this.uS.inicializarUsuario().subscribe(data => {
+        this.usuario = data;
+        this.data = true;
+        console.log(this.usuario);
+      });
+
+  }
+  buscar(termino) {
+    console.log(termino);
+  }
+
+  onSubmit(f: NgForm) {
+    console.log(f.value);  // { first: '', last: '' }
+    console.log(f.valid);  // false
+  }
+
+  loadData(event) {
+    console.log('Cargando siguientes....');
+
+    setTimeout(() => {
+
+      if ( this.data2.length > 50 ) {
+        event.target.complete();
+        this.infiniteScroll.disabled = true;
+        return;
+      }
+
+      const nuevoArr = Array(20);
+      this.data2.push( ...nuevoArr );
+      event.target.complete();
+
+    }, 1000 );
+  }
+
+  // openFirst() {
+  //   this.menu.enable(true, 'first');
+  //   this.menu.toggle('first');
+  // }
 
 }
