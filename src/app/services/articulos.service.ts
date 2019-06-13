@@ -22,7 +22,6 @@ export class ArticulosService {
     const articulos = this.http.get(this.urlArticulos, httpOptions);
     articulos.subscribe( (art: Articulos) => {
       this.articulos = art;
-      console.log(this.articulos);
     });
   }
 }

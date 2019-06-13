@@ -11,30 +11,17 @@ import { ArticulosService } from '../services/articulos.service';
 })
 export class Tab1Page {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  usuario;
-  data = false;
   data2: any[] = Array(20);
 
   constructor(
                public uS: UserService,
                public aS: ArticulosService
              ) {
-
-      this.uS.inicializarUsuario().subscribe(data => {
-        this.usuario = data;
-        this.data = true;
-        console.log(this.usuario);
-      });
-
   }
   buscar(termino) {
     console.log(termino);
   }
 
-  onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  // false
-  }
 
   loadData(event) {
     console.log('Cargando siguientes....');

@@ -2,17 +2,17 @@
 
     <ion-header>
         <ion-toolbar color="primary" text-center>
-            <ion-title *ngIf="data">{{ usuario.nombres}}</ion-title>
-            <ion-spinner name="dots" *ngIf="!data"></ion-spinner>
+            <ion-title *ngIf="uS.data">{{ uS.usuario.nombres}}</ion-title>
+            <ion-spinner name="dots" *ngIf="!uS.data"></ion-spinner>
         </ion-toolbar>
     </ion-header>
-    <ion-content *ngIf="data">
+    <ion-content *ngIf="uS.data">
         <ion-grid>
             <ion-row>
                 <ion-col>
                 </ion-col>
                 <ion-col>
-                    <ion-img class="imagen" src="http://boiling-reaches-83706.herokuapp.com/img/users/{{usuario.foto}}"></ion-img>
+                    <ion-img class="imagen" src="http://boiling-reaches-83706.herokuapp.com/img/users/{{uS.usuario.foto}}"></ion-img>
                 </ion-col>
                 <ion-col>
                 </ion-col>

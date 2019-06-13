@@ -11,16 +11,15 @@ import { MenuController } from '@ionic/angular';
 export class MenuComponent implements OnInit {
   @Input() idMenu;
   usuario;
-  data = false;
   constructor(
                public uS: UserService,
 
              ) {
-      this.uS.inicializarUsuario().subscribe(data => {
-      this.usuario = data;
-      this.data = true;
-      console.log(this.usuario);
-    });
+              this.uS.inicializarUsuario();
+              // this.uS.usuario.subscribe(data => {
+              //   this.usuario = data;
+              //   console.log('carga desde menu');
+              // });
   }
 
 

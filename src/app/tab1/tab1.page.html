@@ -1,8 +1,11 @@
 <app-header idMenu="first" titulo="Reservaciones"></app-header>
+
 <app-menu idMenu="first" contentId="principal"></app-menu>
+
 <ion-router-outlet id="principal"></ion-router-outlet>
 <ion-content>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <!-- <ion-button (click)="uS.cargarStorage()">click</ion-button> -->
+    <form #f="ngForm" novalidate>
         <ion-searchbar animated (ionChange)="buscar(first.value)" name="first" ngModel #first="ngModel"></ion-searchbar>
     </form>
     <ion-list>

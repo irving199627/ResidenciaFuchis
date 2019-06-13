@@ -16,11 +16,7 @@ export class Tab2Page {
                public uS: UserService,
                private menu: MenuController
              ) {
-    this.uS.inicializarUsuario().subscribe(data => {
-      this.usuario = data;
-      this.data = true;
-      console.log(this.usuario);
-    });
+    // this.uS.inicializarUsuario();
   }
   openFirst() {
     this.menu.enable(true, 'second');

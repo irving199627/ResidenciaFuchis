@@ -17,15 +17,21 @@ const httpOptions = {
 })
 export class UserService {
   usuarios;
+  usuario;
   idUsuario;
   loading;
+  data = false;
   url = 'http://boiling-reaches-83706.herokuapp.com/api/login';
   constructor( private http: HttpClient,
                private loadingController: LoadingController,
                private router: Router,
                public alertController: AlertController,
                private platform: Platform,
-               private storage: Storage ) { }
+               private storage: Storage ) {
+                 this.cargarStorage();
+                //  this.inicializarUsuario();
+                //  console.log(this.idUsuario);
+                }
 
 
   async presentAlert() {
@@ -48,21 +54,21 @@ export class UserService {
 
   login( form ) {
     this.presentLoading();
-    console.log(form);
     const user = this.http.post(this.url, form.value, httpOptions);
     user.subscribe((data: Usuario) => {
-      console.log(data);
       if (data) {
         this.usuarios = data;
         this.guardarStorage();
         this.cargarStorage();
-        this.router.navigate(['/tabs']);
+        this.inicializarUsuario();
+        console.log(this.idUsuario, 'id del usuario');
+        this.router.navigate(['/tabs/tab1']);
         this.loading.dismiss();
       }
     }, err => {
       if (err) {
-        console.log(err);
         this.presentAlert();
+        this.loading.dismiss();
       }
     });
 
@@ -83,6 +89,7 @@ export class UserService {
         this.storage.get('usuario').then(val => {
           if (val) {
             this.idUsuario = val;
+            console.log(val);
             resolve(true);
           } else {
             resolve(false);
@@ -92,7 +99,7 @@ export class UserService {
         // Escritorio
         if (localStorage.getItem('usuario')) {
           this.idUsuario = localStorage.getItem('usuario');
-          console.log(this.idUsuario);
+          console.log(localStorage.getItem('usuario'));
           resolve(true);
         } else {
           resolve(false);
@@ -102,9 +109,11 @@ export class UserService {
   }
 
   inicializarUsuario() {
-      const usuario = this.http.get(`https://boiling-reaches-83706.herokuapp.com/api/users/${this.idUsuario}`,
-        httpOptions);
-      return usuario;
+        this.http.get(`https://boiling-reaches-83706.herokuapp.com/api/users/${this.idUsuario}`,
+        httpOptions).subscribe(data => {
+          this.usuario = data;
+          this.data = true;
+        });
   }
 
   borrarStorage() {
