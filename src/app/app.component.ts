@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoginPage } from './login/login.page';
@@ -18,7 +18,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private uS: UserService,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController
   ) {
     this.initializeApp();
   }
@@ -29,9 +30,9 @@ export class AppComponent {
         this.statusBar.styleDefault();
         this.splashScreen.hide();
         if (existe) {
-          this.router.navigate(['/tabs']);
+          this.navCtrl.navigateRoot(['/main/tabs/tab1']);
         } else {
-          this.router.navigate(['/']);
+          this.navCtrl.navigateRoot(['/']);
         }
       });
     });

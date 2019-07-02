@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() titulo;
   @Input() idMenu;
   constructor( private menu: MenuController,
+               private navCtrl: NavController,
                private uS: UserService,
                private route: Router ) { }
 
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
   }
   logOut() {
     this.uS.borrarStorage();
-    this.route.navigate(['/']);
+    // this.route.navigate(['/']);
+    this.navCtrl.navigateRoot(['/'], {animated: true});
   }
 
 }

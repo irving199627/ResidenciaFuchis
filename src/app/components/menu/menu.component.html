@@ -2,28 +2,28 @@
 
     <ion-header>
         <ion-toolbar color="primary" text-center>
-            <ion-title *ngIf="uS.data">{{ uS.usuario.nombres}}</ion-title>
-            <ion-spinner name="dots" *ngIf="!uS.data"></ion-spinner>
+            <ion-title>{{ uS.usuarioLogeado.nombres}} {{ uS.usuarioLogeado.apellidos}}</ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-content *ngIf="uS.data">
+    <ion-content>
         <ion-grid>
             <ion-row>
                 <ion-col>
                 </ion-col>
                 <ion-col>
-                    <ion-img class="imagen" src="http://boiling-reaches-83706.herokuapp.com/img/users/{{uS.usuario.foto}}"></ion-img>
+                    <!-- <ion-img class="imagen" src="http://boiling-reaches-83706.herokuapp.com/img/users/{{ uS.usuarioLogeado.foto}}"></ion-img> -->
                 </ion-col>
                 <ion-col>
                 </ion-col>
             </ion-row>
         </ion-grid>
         <ion-list>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.nombres}} {{ uS.usuarioLogeado.apellidos}}</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.carrera}}</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.email}}</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.matricula}}</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.telefono}}</ion-item>
+            <ion-item>{{ uS.usuarioLogeado.rol }}</ion-item>
         </ion-list>
     </ion-content>
 

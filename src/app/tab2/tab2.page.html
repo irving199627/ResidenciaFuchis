@@ -1,53 +1,27 @@
 <app-header titulo="Reservaciones Realizadas" idMenu="second"></app-header>
-<!-- <ion-header no-border>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-button (click)="openFirst()"> Hola </ion-button>
-        </ion-buttons>
-        <ion-title>
-
-        </ion-title>
-        <ion-buttons slot="end">
-            <ion-button>Log out</ion-button>
-            <ion-icon name="exit" color="primary"></ion-icon>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-
-</ion-content>
-
 <app-menu idMenu="second" contentId="principal"></app-menu>
-<!-- <ion-menu side="start" menuId="second" type="overlay" contentId="segundo">
-
-    <ion-header>
-        <ion-toolbar color="primary" text-center>
-            <ion-title *ngIf="data">{{ usuario.nombres}}</ion-title>
-            <ion-spinner name="dots" *ngIf="!data"></ion-spinner>
-        </ion-toolbar>
-    </ion-header>
-    <ion-content *ngIf="data">
-        <ion-grid>
-            <ion-row>
-                <ion-col>
-                </ion-col>
-                <ion-col>
-                    <ion-img class="imagen" src="../../assets/img/user.png"></ion-img>
-                </ion-col>
-                <ion-col>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-        <ion-list>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-        </ion-list>
-    </ion-content>
-
-</ion-menu> -->
 
 <ion-router-outlet id="principal"></ion-router-outlet>
+<ion-content>
+
+    <ion-item>
+        <ion-label>Seleccionar Cubiculo</ion-label>
+        <ion-select [(ngModel)]="numeroCubiculo" placeholder="Select" (ionChange)="seleccionarCubiculo(numeroCubiculo)">
+
+            <ion-select-option *ngFor="let cubiculo of cS.cubiculos" [value]="">
+                {{cubiculo.cubiculo}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div>
+
+    </div>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-item *ngFor="let item of cS.cubiculo">
+            <ion-label>{{ item.hora_inicio }} - {{ item.hora_fin }}</ion-label>
+            <ion-checkbox [name]="item.horario" (ngModel)="item.horario" slot="start" color="medium"></ion-checkbox>
+        </ion-item>
+        <br>
+        <ion-button type="submit" color="success" shape="round" expand="full" fill="outline">Apartar</ion-button>
+    </form>
+</ion-content>

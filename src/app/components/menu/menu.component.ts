@@ -16,10 +16,6 @@ export class MenuComponent implements OnInit {
 
              ) {
               this.uS.inicializarUsuario();
-              // this.uS.usuario.subscribe(data => {
-              //   this.usuario = data;
-              //   console.log('carga desde menu');
-              // });
   }
 
 

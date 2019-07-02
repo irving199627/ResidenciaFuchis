@@ -14,6 +14,9 @@ import { UserService } from './services/user.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { ComponentesModule } from './components/componentes.module';
 import { ArticulosService } from './services/articulos.service';
+import { IUsuarioService } from './services/iusuario.service';
+import { CubiculosService } from './services/cubiculos.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +27,8 @@ import { ArticulosService } from './services/articulos.service';
     AppRoutingModule,
     LoginPageModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     ComponentesModule,
     IonicStorageModule.forRoot()
   ],
@@ -32,6 +37,8 @@ import { ArticulosService } from './services/articulos.service';
     SplashScreen,
     UserService,
     ArticulosService,
+    IUsuarioService,
+    CubiculosService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Router} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AlertController, Platform, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { URL_SERVICE } from '../config/config';
 
 
 const httpOptions = {
@@ -18,19 +18,14 @@ const httpOptions = {
 export class UserService {
   usuarios;
   usuario;
+  usuarioLogeado;
   idUsuario;
   loading;
   data = false;
-  url = 'http://boiling-reaches-83706.herokuapp.com/api/login';
   constructor( private http: HttpClient,
                private loadingController: LoadingController,
-               private router: Router,
                public alertController: AlertController,
-               private platform: Platform,
                private storage: Storage ) {
-                 this.cargarStorage();
-                //  this.inicializarUsuario();
-                //  console.log(this.idUsuario);
                 }
 
 
@@ -53,17 +48,18 @@ export class UserService {
   }
 
   login( form ) {
+    const url = URL_SERVICE + '/api/login';
     this.presentLoading();
-    const user = this.http.post(this.url, form.value, httpOptions);
-    user.subscribe((data: Usuario) => {
+    return new Promise(resolve => {
+      const user = this.http.post(url, form.value, httpOptions);
+      user.subscribe((data: Usuario) => {
       if (data) {
         this.usuarios = data;
-        this.guardarStorage();
-        this.cargarStorage();
-        this.inicializarUsuario();
-        console.log(this.idUsuario, 'id del usuario');
-        this.router.navigate(['/tabs/tab1']);
+        this.guardarStorage(this.usuarios);
         this.loading.dismiss();
+        resolve(true);
+      } else {
+        resolve(false);
       }
     }, err => {
       if (err) {
@@ -71,61 +67,33 @@ export class UserService {
         this.loading.dismiss();
       }
     });
+  });
+}
+  async guardarStorage(user) {
+      await this.storage.set('usuario', JSON.stringify(user));
+  }
 
-  }
-  guardarStorage() {
-    if (this.platform.is('cordova')) {
-      // Celular
-      this.storage.set('usuario', this.usuarios.id);
-    } else {
-      // Escritorio
-      localStorage.setItem('usuario', this.usuarios.id);
-    }
-  }
-  cargarStorage() {
+   cargarStorage() {
     return new Promise( (resolve, reject) => {
-      if (this.platform.is('cordova')) {
-        // Celular
-        this.storage.get('usuario').then(val => {
+        this.storage.get('usuario').then(async val => {
           if (val) {
-            this.idUsuario = val;
-            console.log(val);
-            resolve(true);
+            this.usuarioLogeado = JSON.parse(val);
+            await resolve(true);
           } else {
             resolve(false);
           }
         });
-      } else {
-        // Escritorio
-        if (localStorage.getItem('usuario')) {
-          this.idUsuario = localStorage.getItem('usuario');
-          console.log(localStorage.getItem('usuario'));
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }
     });
   }
 
-  inicializarUsuario() {
-        this.http.get(`https://boiling-reaches-83706.herokuapp.com/api/users/${this.idUsuario}`,
-        httpOptions).subscribe(data => {
-          this.usuario = data;
-          this.data = true;
-        });
+  async inicializarUsuario() {
+    this.cargarStorage();
   }
 
   borrarStorage() {
-    if (this.platform.is('cordova')) {
-      // Celular
       this.storage.remove('usuario');
-    } else {
-      // Escritorio
-      localStorage.removeItem('usuario');
-    }
   }
-  // ivan.lopez3k@gmail.com
+
 }
 interface Usuario {
   apellidos: string;
