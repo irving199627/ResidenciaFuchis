@@ -81,12 +81,14 @@ export class IUsuarioService {
           handler: ( ) => {
             this.cS.apartarCubiculo(iduser, idcubicules, idschedules)
             .subscribe(res => {
-              if (!res) {
-                this.presentAlert('Ocurrió un error al reservar');
-              } else {
-                this.presentAlert('Reservación realizada correctamente');
-                this.router.navigate(['/main/tabs/tab1']);
-              }
+              // window.location.href = '/main/tabs/tab1'; // redireccionar a otra pagina
+              // if (!res) {
+              //   this.presentAlert('Ocurrió un error al reservar');
+              // } else {
+              //   // this.presentAlert('Reservación realizada correctamente');
+              //   // this.router.navigate(['/main/tabs/tab1']);
+              //   this.cS.getCubiculos();
+              // }
             });
           }
         }

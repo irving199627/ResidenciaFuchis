@@ -55,9 +55,9 @@ export class CubiculosService {
   }, {headers})
   .pipe(map ((resp, error ) => {
     if (error) {
-      return false;
+      console.log(error);
     }
-    return resp;
+    console.log(resp);
   }));
   }
 }
