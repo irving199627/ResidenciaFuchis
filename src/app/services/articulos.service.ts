@@ -22,7 +22,7 @@ export class ArticulosService {
   vacio = true;
   articulosFiltrados = [];
   termino;
-  articulos: Articulos;
+  articulos: any;
 
   constructor( private http: HttpClient, public uS: UserService ) {
                         this.getArticulos();
@@ -43,6 +43,8 @@ export class ArticulosService {
     this.resultadosBusq.forEach( an => {
         if ( an.nombre.indexOf( this.termino ) >= 0 ) {
           this.articulosFiltrados.push(an);
+          this.articulos = this.articulosFiltrados;
+          console.log(this.articulosFiltrados);
         }
         if ( this.articulosFiltrados.length === 0 ) {
           this.vacio = true;
@@ -57,8 +59,8 @@ export class ArticulosService {
     const promesa = new Promise( (resolve, reject ) => {
       this.item = this.http.get(urlArticulos, httpOptions);
       this.item.subscribe( (art) => {
-        // this.resultadosBusq = art;
-        this.articulos = art;
+        this.resultadosBusq = art;
+        // this.articulos = art;
         resolve();
       });
     });
