@@ -1,1 +1,1 @@
-export const URL_SERVICE = 'https://residenciancie.herokuapp.com';
+export const URL_SERVICE = 'localhost:3000';
